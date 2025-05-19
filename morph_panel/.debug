@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionList>
+    <Extension Id="com.morph_panel.panel">
+        <HostList>
+            <Host Name="FLPR" Port="50424" />
+        </HostList>
+    </Extension>
+    <Extension Id="com.morph_panel.modal">
+        <HostList>
+            <Host Name="FLPR" Port="50425" />
+        </HostList>
+    </Extension>
+</ExtensionList>

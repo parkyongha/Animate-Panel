@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/main.css" />
+  <title>Unity Inspector</title>
+</head>
+
+<body>
+  <div class="inspector">
+    <h2>Animate Extension</h2>
+    <div>
+      <label for="uploadNas">나스 업로드</label>
+      <input type="checkbox" id="uploadNas" name="uploadNas" checked />
+    </div>
+    <div id="nasHeader">
+      <h3>업로드 경로 목록</h3>
+      <button id="addPathBtn">+ 경로 추가</button>
+    </div>
+    <div id="nasList">
+      <div class="path-item">
+        <label>
+          경로:
+          <input type="text" name="nasPath[]" value="//nas/home/www/" style="width: 400px;">
+        </label>
+      </div>
+    </div>
+    <button id="nasUploadBtn">Nas Upload</button>
+  </div>
+  <!-- 라이브러리 -->
+  <script src="js/libs/CSInterface.js"> </script>
+  <script src="js/themeManager.js"></script>
+  <script src="build.js"></script>
+  <!-- 내 코드 -->
+  <script src="js/main.js"> </script>
+</body>
+
+</html>
