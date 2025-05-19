@@ -5,7 +5,7 @@
             <Host Name="FLPR" Port="50424" />
         </HostList>
     </Extension>
-    <Extension Id="com.morph_panel.modal">
+    <Extension Id="com.morph_panel.localserver">
         <HostList>
             <Host Name="FLPR" Port="50425" />
         </HostList>

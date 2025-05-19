@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        let localServer;
+        const serverPath = `${__dirname}/server/main.js`;
+
+        /**
+         * 실제 서버 모듈을 require 해서 run()을 호출하고
+         * 생성된 httpServer 인스턴스를 반환합니다.
+         */
+        function createServerInstance() {
+            // 캐시에서 지워서 항상 최신 코드를 로드
+            const resolved = cep_node.require.resolve(serverPath);
+            delete cep_node.require.cache[resolved];
+
+            // 모듈 가져와서 실행 → httpServer 반환
+            return cep_node.require(serverPath)();
+        }
+
+        /**
+         * 서버를 (재)시작합니다.
+         * 이전 인스턴스가 있으면 닫은 뒤, 짧은 딜레이를 두고 새로 띄웁니다.
+         */
+        function reloadServer() {
+            if (localServer) {
+                localServer.close(() => {
+                    console.log('🔒 Previous server closed');
+                    // 포트가 완전히 해제된 후에 새로 시작
+                    setTimeout(() => {
+                        console.log('🚀 Starting new server instance');
+                        localServer = createServerInstance();
+                    }, 100);
+                });
+            } else {
+                console.log('🚀 Initial server start');
+                localServer = createServerInstance();
+            }
+        }
+
+        // 최초 실행
+        reloadServer();
+
+    </script>
+    <title>Import Example App</title>
+</head>
+
+<body>
+    <h1>Local Server Test</h1>
+</body>
+
+</html>

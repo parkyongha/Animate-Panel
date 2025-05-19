@@ -2,12 +2,12 @@
   "name": "morph_panel",
   "version": "0.0.1",
   "private": true,
-  "type": "module",
-  "scripts": {
-  },
+  "type": "commonjs",
+  "main": "js/index.js",
+  "scripts": {},
   "dependencies": {
-  },
-  "devDependencies": {
+    "express": "^5.1.0",
+    "request": "^2.88.2"
   },
   "browserslist": [
     "last 1 version, not dead, ie >= 11"

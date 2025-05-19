@@ -1,9 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<ExtensionManifest ExtensionBundleId="com.morph_panel" ExtensionBundleVersion="1.0.0" ExtensionBundleName="morph_panel" Version="8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ExtensionManifest ExtensionBundleId="com.morph_panel" ExtensionBundleVersion="1.0.0" ExtensionBundleName="t_morph_panel" Version="8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ExtensionList>
     <Extension Id="com.morph_panel.panel" Version="1.0.0" />
+    <Extension Id="com.morph_panel.localserver" Version="1.0.0" />
   </ExtensionList>
-  
+
   <ExecutionEnvironment>
     <HostList>
       <Host Name="FLPR" Version="13.0" /> 
@@ -19,7 +20,7 @@
   </ExecutionEnvironment>
 
   <DispatchInfoList>
-    <Extension Id="com.morph_panel.panel">
+    <Extension Id = "com.morph_panel.panel">
       <DispatchInfo>
         <Resources>
           <MainPath>./index.html</MainPath>          
@@ -38,6 +39,39 @@
           <Type>Panel</Type>
           <Menu>morph_panel</Menu>
           <Geometry>
+            <Size>
+              <Height>400</Height>
+              <Width>500</Width>
+            </Size>
+            <MaxSize>
+              <Height>500</Height>
+              <Width>598</Width>
+            </MaxSize>
+            <MinSize>
+              <Height>300</Height>
+              <Width>260</Width>
+            </MinSize>
+          </Geometry>
+          <Icons />
+        </UI>
+      </DispatchInfo>
+    </Extension>
+    <Extension Id = "com.morph_panel.localserver">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./client/localServer.html</MainPath>
+          <CEFCommandLine>
+            <Parameter>--enable-nodejs</Parameter>
+            <Parameter>--mixed-context</Parameter>
+          </CEFCommandLine>
+        </Resources>
+        <Lifecycle>
+          <AutoVisible>false</AutoVisible>
+        </Lifecycle>
+        <UI>
+          <Type>Panel</Type>
+          <Menu>local server</Menu>
+            <Geometry>
             <Size>
               <Height>400</Height>
               <Width>500</Width>
