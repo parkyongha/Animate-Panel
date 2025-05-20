@@ -40,16 +40,12 @@
           <Menu>morph_panel</Menu>
           <Geometry>
             <Size>
-              <Height>400</Height>
+              <Height>600</Height>
               <Width>500</Width>
             </Size>
-            <MaxSize>
-              <Height>500</Height>
-              <Width>598</Width>
-            </MaxSize>
             <MinSize>
-              <Height>300</Height>
-              <Width>260</Width>
+              <Height>600</Height>
+              <Width>500</Width>
             </MinSize>
           </Geometry>
           <Icons />
@@ -72,19 +68,15 @@
           <Type>Panel</Type>
           <Menu>local server</Menu>
             <Geometry>
-            <Size>
-              <Height>400</Height>
-              <Width>500</Width>
-            </Size>
-            <MaxSize>
-              <Height>500</Height>
-              <Width>598</Width>
-            </MaxSize>
-            <MinSize>
-              <Height>300</Height>
-              <Width>260</Width>
-            </MinSize>
-          </Geometry>
+              <Size>
+                <Height>600</Height>
+                <Width>500</Width>
+              </Size>
+              <MinSize>
+                <Height>600</Height>
+                <Width>500</Width>
+              </MinSize>
+            </Geometry>
           <Icons />
         </UI>
       </DispatchInfo>

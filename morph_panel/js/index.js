@@ -5,7 +5,7 @@ const extRoot = csInterface.getSystemPath("extension");
 const fileUtil = require(extRoot + '/js/libs/fileUtil.js');
 const jsflCommands = require(extRoot + '/js/libs/jsflCommands.js');
 
-
+// 서버 실행
 csInterface.requestOpenExtension('com.morph_panel.localserver', '');
 
 (function init() {
@@ -40,17 +40,17 @@ function setupButtons() {
 
         const json = JSON.stringify({ items, projectPath, folderName });
 
-        console.log(`folderName: ${folderName}`);
-
         fetch(`http://localhost:3200/nasUpload`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: json
         })
             .then(res => res.json())
-            .then(json => console.log(json));
+            .then(json => {
+                console.log(json);
+            });
             
-        // 루트 경로로 통신
+        // 루트 경로로 통신 예제
         // fetch('http://localhost:3200/')
         //     .then(res => res.text())
         //     .then(text => console.log(`통신 ----- ${text}`));
@@ -69,6 +69,7 @@ function getPathList() {
 
     pathItems.forEach(item => {
         const path = item.value.trim();
+
         if (path) {
             pathList.push(path);
         }

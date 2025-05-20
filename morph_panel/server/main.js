@@ -32,32 +32,25 @@ function run() {
     });
 
     /* http://localhost:3200/nasUpload 로 요청이 들어왔을 떄 */
-    app.post("/nasUpload", (req, res, next) => {
-        const { items, projectPath, folderName } = req.body;
+    app.post("/nasUpload", async (req, res, next) => {
+        try {
+            const { items, projectPath, folderName } = req.body;
+            const list = Array.isArray(items) ? items : [items];
+            const unique = [...new Set(list)];
 
-        if (!items) {
-            return res.status(400).json({ error: 'No items provided' });
+            const promises = unique.map(nasPath =>
+                fileUtil.uploadNas(projectPath, folderName, nasPath)
+                    .then(r => ({ filePath: nasPath, ...r }))
+            );
+
+            const results = await Promise.all(promises);
+
+            res.json({ results });
+        } catch (err) {
+            console.error('nasUpload 처리 중 에러:', err);
+            // next(err);           // Express 에러핸들러로 전달
+            res.status(500).json({ error: err.message || '서버 에러' });
         }
-
-        // items는 배열로 변환하며 중복 제거
-        const rawList = Array.isArray(items) ? items : [items];
-        const itemList = [...new Set(rawList)];
-
-        // 각 항목에 대해 처리
-        itemList.forEach(nasPath => {
-            console.log(`Received item: ${nasPath}`);
-
-            // TODO : 나스에 업로드하는 로직 추가
-            fileUtil.uploadNas(projectPath, folderName, nasPath, (success, result) => {
-                if (success) {
-                    console.log(`File uploaded successfully: ${result}`);
-                } else {
-                    console.error(`File upload failed: ${result}`);
-                }
-            });
-        });
-
-        res.send({ message: 'Items received successfully', items: itemList });
     });
 
     return httpServer;
