@@ -46,9 +46,7 @@ Animate를 재시작했는데도 뜨지 않는다면
 
 ### 파일 세팅
 
-[https://github.com/parkyongha/Animate-Panel](https://github.com/parkyongha/Animate-Panel)
-
-첨부한 깃 링크에서 파일을 다운받거나 clone 하신 후 
+파일을 다운받거나 clone 하신 후 
 
 `C:\Program Files (x86)\Common Files\Adobe\CEP\extensions` 
 
