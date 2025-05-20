@@ -36,11 +36,16 @@ function setupButtons() {
     document.getElementById('nasUploadBtn').addEventListener('click', async () => {
         const items = getPathList();
         const projectPath = await getProjectPath();
+        const folderName = getFolderName();
+
+        const json = JSON.stringify({ items, projectPath, folderName });
+
+        console.log(`folderName: ${folderName}`);
 
         fetch(`http://localhost:3200/nasUpload`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ items, projectPath })
+            body: json
         })
             .then(res => res.json())
             .then(json => console.log(json));
@@ -49,25 +54,6 @@ function setupButtons() {
         // fetch('http://localhost:3200/')
         //     .then(res => res.text())
         //     .then(text => console.log(`통신 ----- ${text}`));
-    });
-}
-
-async function getProjectPath() {
-    const path = await evalScriptAsync(jsflCommands.getPath());
-
-    return fileUtil.getRootFolder(path);
-}
-
-// evalScript가 비동기로 결과가 반환되기 때문에 Promise로 감싸서 사용
-function evalScriptAsync(script) {
-    return new Promise((resolve, reject) => {
-        csInterface.evalScript(script, result => {
-            if (result === 'undefined' || result === '' || result == null) {
-                reject(new Error('No result from evalScript'));
-            } else {
-                resolve(result);
-            }
-        });
     });
 }
 
@@ -91,6 +77,26 @@ function getPathList() {
     return pathList;
 }
 
-function uploadNas() {
+async function getProjectPath() {
+    const getPathJsfl = jsflCommands.getPath();
 
+    return await evalScriptAsync(getPathJsfl);
+}
+
+// evalScript가 비동기로 결과가 반환되기 때문에 Promise로 감싸서 사용
+function evalScriptAsync(script) {
+    return new Promise((resolve, reject) => {
+        csInterface.evalScript(script, result => {
+            if (result === 'undefined' || result === '' || result == null) {
+                reject(new Error('No result from evalScript'));
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function getFolderName() {
+    const folderName = document.getElementById('folderName').value.trim();
+    return folderName || null;
 }

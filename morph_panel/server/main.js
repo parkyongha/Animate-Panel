@@ -7,7 +7,7 @@ const http = require('http');
 const path = require("path");
 const fs = require('fs');
 
-const fileUtil = require(path.join(__dirname, "../js", "libs", "fileUtil.js"));
+const fileUtil = require("../js/libs/fileUtil.js");
 
 /** @type {http.Server} */
 const httpServer = http.Server(app);
@@ -33,24 +33,29 @@ function run() {
 
     /* http://localhost:3200/nasUpload 로 요청이 들어왔을 떄 */
     app.post("/nasUpload", (req, res, next) => {
-        const { items, projectPath } = req.body;
+        const { items, projectPath, folderName } = req.body;
 
         if (!items) {
             return res.status(400).json({ error: 'No items provided' });
         }
 
-        // items는 배열로 변환
-        const itemList = Array.isArray(items) ? items : [items];
+        // items는 배열로 변환하며 중복 제거
+        const rawList = Array.isArray(items) ? items : [items];
+        const itemList = [...new Set(rawList)];
 
         // 각 항목에 대해 처리
-        itemList.forEach(item => {
-            console.log(`Received item: ${item}`);
+        itemList.forEach(nasPath => {
+            console.log(`Received item: ${nasPath}`);
 
             // TODO : 나스에 업로드하는 로직 추가
-            // fs.writeFile 사용
+            fileUtil.uploadNas(projectPath, folderName, nasPath, (success, result) => {
+                if (success) {
+                    console.log(`File uploaded successfully: ${result}`);
+                } else {
+                    console.error(`File upload failed: ${result}`);
+                }
+            });
         });
-
-        console.log(`Project Path: ${projectPath}`);
 
         res.send({ message: 'Items received successfully', items: itemList });
     });
